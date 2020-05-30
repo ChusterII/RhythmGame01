@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using MEC;
 using RhythmTool;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
@@ -44,8 +45,11 @@ public class GameManager : MonoBehaviour
     [Header("Configuration")]
     public RhythmEventProvider eventProvider;
     public RhythmPlayer rhythmPlayer;
-    public AudioSource audioSource;
+    public AudioSource audioSource; // puede que sobre
     public UIManager uiManager;
+    public JukeBox jukebox;
+    public SpawnManager spawnManager;
+    public PlayerMove player;
 
     [Header("Scoring")]
     public List<ScoringValues> scoringValues;
@@ -64,6 +68,8 @@ public class GameManager : MonoBehaviour
     public Color normalMultiplierColor;
     public Color maxMultiplierColor;
     
+    
+    
     private List<Beat> _listBeat;
     private Track<Beat> _trackBeat;
     
@@ -71,13 +77,24 @@ public class GameManager : MonoBehaviour
 
     private int _multiplierProgressCounter;
     private bool _reachedMaxMultiplier;
+    private float _playTimer;
     
     
     // Start is called before the first frame update
     void Start()
     {
+        
         InitializeScore();
         InitializeDictionary();
+        InitializeStartingVariables();
+
+        Timing.RunCoroutine(_PlayGame());
+    }
+
+    private void InitializeStartingVariables()
+    {
+        player.movementEnabled = false;
+        _playTimer = 0;
     }
 
     private void InitializeScore()
@@ -88,7 +105,6 @@ public class GameManager : MonoBehaviour
         uiManager.SetMaxMultiplierText(false);
     }
 
-
     private void InitializeDictionary()
     {
         _scoreValuesDictionary = new Dictionary<ScoringGrade, int>();
@@ -98,13 +114,29 @@ public class GameManager : MonoBehaviour
         }
     }
 
-
-    // Update is called once per frame
-    void Update()
+    private void PlayTimerTick()
     {
-        
-
+        _playTimer += Time.deltaTime;
     }
+
+    private IEnumerator<float> _PlayGame()
+    {
+        // Wait a few seconds
+        yield return Timing.WaitForSeconds(2f);
+        
+        // Start playing the song
+        jukebox.PlaySong();
+        
+        // Starts the countdown and waits until it's done
+        yield return Timing.WaitUntilDone(Timing.RunCoroutine(uiManager._StartCountdown()));
+        
+        // Enables spawning
+        spawnManager.spawnEnabled = true;
+        
+        // Enable movement
+        player.movementEnabled = true;
+    }
+
 
     public ScoringGrade CalculateScore()
     {
@@ -160,8 +192,6 @@ public class GameManager : MonoBehaviour
                         // If we aren't at max multiplier, just turn the capsules off
                         uiManager.StartCoroutine("ChainExplosion", normalMultiplierColor);
                         uiManager.SetMultiplierProgress(emptyMultiplierMaterial);
-                        
-                        
 
                         _multiplierProgressCounter = -1;
                     }

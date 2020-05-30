@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using MEC;
 using TMPro;
 using UnityEngine;
 
@@ -41,7 +42,11 @@ public class UIManager : MonoBehaviour
     public JukeBox jukeBox;
     public Material borderMaterial;
     public Material infoPanelMaterial;
-    public Color originalBorderColor;
+    public Color startingBorderColor;
+
+    [Header("Countdown")] 
+    public TextMeshProUGUI countDownText;
+    public Animator countDownTextAnimator;
 
 
     // Start is called before the first frame update
@@ -55,10 +60,10 @@ public class UIManager : MonoBehaviour
 
         DOTween.defaultAutoPlay = AutoPlay.None;
 
-        borderMaterial.SetColor("_BaseColor", originalBorderColor);
+        borderMaterial.SetColor("_BaseColor", startingBorderColor);
         infoPanelMaterial.SetFloat("DissolveValue", 1f);
 
-        StartCoroutine("JukeBoxInfoPanelSequence");
+        Timing.RunCoroutine(JukeBoxInfoPanelSequence());
     }
 
     // Update is called once per frame
@@ -67,36 +72,50 @@ public class UIManager : MonoBehaviour
         
     }
 
-    private IEnumerator JukeBoxInfoPanelSequence()
+    private IEnumerator<float> JukeBoxInfoPanelSequence()
     {
+        yield return Timing.WaitForSeconds(0.5f);
         JukeBoxInfoPanelFadeIn();
-        yield return new WaitForSeconds(5f);
+        yield return Timing.WaitForSeconds(4.5f);
         JukeBoxInfoPanelFadeOut();
+    }
+
+    public IEnumerator<float> _StartCountdown()
+    {
+        countDownText.text = "3";
+        countDownTextAnimator.SetTrigger("PlayCountdown");
+        yield return Timing.WaitForSeconds(1f);
+        countDownText.text = "2";
+        countDownTextAnimator.SetTrigger("PlayCountdown");
+        yield return Timing.WaitForSeconds(1f);
+        countDownText.text = "1";
+        countDownTextAnimator.SetTrigger("PlayCountdown");
+        yield return Timing.WaitForSeconds(1f);
+        countDownText.text = "Go!";
+        countDownTextAnimator.SetTrigger("PlayCountdown");
+        yield return Timing.WaitForSeconds(1f);
     }
 
     private void JukeBoxInfoPanelFadeIn()
     {
         Sequence fadeInSequence = DOTween.Sequence();
 
-        print("Fading in");
-        fadeInSequence.Append(borderMaterial.DOFade(1f, "_BaseColor", 1f));
-        fadeInSequence.Join(infoPanelMaterial.DOFloat(0f, "DissolveValue", 2.5f));
-        fadeInSequence.Append(songNameText.DOFade(1f, 1f));
-        fadeInSequence.Join(byText.DOFade(1f, 1f));
-        fadeInSequence.Join(artistNameText.DOFade(1f, 1f));
+        fadeInSequence.Append(borderMaterial.DOFade(1f, "_BaseColor", 0.5f));
+        fadeInSequence.Join(infoPanelMaterial.DOFloat(0f, "DissolveValue", 0.5f));
+        fadeInSequence.Append(songNameText.DOFade(1f, 0.5f));
+        fadeInSequence.Append(byText.DOFade(1f, 0.3f));
+        fadeInSequence.Join(artistNameText.DOFade(1f, 0.3f));
     }
     
     private void JukeBoxInfoPanelFadeOut()
     {
         Sequence fadeOutSequence = DOTween.Sequence();
 
-        print("Fading out");
-        fadeOutSequence.Append(songNameText.DOFade(0f, 0.5f));
-        fadeOutSequence.Append(byText.DOFade(0f, 0.5f));
-        fadeOutSequence.Append(artistNameText.DOFade(0f, 0.5f));
-        fadeOutSequence.Append(borderMaterial.DOFade(0f, "_BaseColor", 1f));
-        fadeOutSequence.Join(infoPanelMaterial.DOFloat(1f, "DissolveValue", 2f));
-
+        fadeOutSequence.Append(songNameText.DOFade(0f, 0.25f));
+        fadeOutSequence.Append(byText.DOFade(0f, 0.25f));
+        fadeOutSequence.Append(artistNameText.DOFade(0f, 0.25f));
+        fadeOutSequence.Append(borderMaterial.DOFade(0f, "_BaseColor", 0.5f));
+        fadeOutSequence.Join(infoPanelMaterial.DOFloat(1f, "DissolveValue", 1.5f));
     }
 
     public void UpdateScore()

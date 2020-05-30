@@ -76,9 +76,10 @@ public class CoinController : MonoBehaviour
 
     private void DisableCoin()
     {
+        // Deactivate the object
         gameObject.SetActive(false);
         
-        // Set the components to active so the next spawns of this object can be seen and interacted with
+        // Set the components to active so the next spawns of this object can be seen and interacted with.
         SetComponents(true);
     }
 

@@ -21,8 +21,8 @@ public class SpawnManager : MonoBehaviour
     public float minSpawnRadius;
     public LayerMask spawnLayer;
 
-    [Header("Testing Stuff")] 
-    public Text spawnText;
+    [Header("Starting settings")] 
+    public int startingSpawnNumber;
     
     private Vector3 _spawnPoint;
     private bool _canSpawn = false;
@@ -31,47 +31,66 @@ public class SpawnManager : MonoBehaviour
     private float _nextSpawnTime;
     private ObjectPooler _objectPooler;
     private Collider[] _overlapColliders;
+    private int _spawnedCounter;
+
+    [HideInInspector]
+    public bool spawnEnabled;
     
     // Start is called before the first frame update
     void Start()
     {
-        _objectPooler = ObjectPooler.Instance;
-        
-        _overlapColliders = new Collider[3];
+        InitializeComponents();
+        InitializePreSpawn();
         SelectNextSpawnTime();
+    }
+
+    private void InitializeComponents()
+    {
+        _objectPooler = ObjectPooler.Instance;
+        _overlapColliders = new Collider[3];
+    }
+
+    private void InitializePreSpawn()
+    {
+        // Initial pre-spawn
+        for (int i = 0; i < startingSpawnNumber; i++)
+        {
+            SelectSpawnPoint();
+            CheckSpawnPoint();
+            SpawnCoin();
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        SpawnTimerTick();
-        PrintSpawnTimer();
-        
-        if (_spawnTimer > _nextSpawnTime)
+        // Big flag sent by the GameManager that starts the game
+        if (spawnEnabled)
         {
-            SelectSpawnPoint();
-            CheckSpawnPoint();
-            if (_canSpawn)
+            SpawnTimerTick();
+
+            if (_spawnTimer > _nextSpawnTime)
             {
-                //print("Entered");
-                SpawnSphere();
-                ResetSpawnTimer();
-                SelectNextSpawnTime();
+                SelectSpawnPoint();
+                CheckSpawnPoint();
+                if (_canSpawn)
+                {
+                    SpawnCoin();
+                    ResetSpawnTimer();
+                    SelectNextSpawnTime();
+                }
             }
         }
-
     }
 
     private void SelectNextSpawnTime()
     {
         _nextSpawnTime = Random.Range(minSpawnTimer, maxSpawnTimer);
-        //print("Next spawn in: " + _nextSpawnTime);
     }
     
     private void SpawnTimerTick()
     {
         _spawnTimer += Time.deltaTime;
-        
     }
 
     private void ResetSpawnTimer()
@@ -84,43 +103,27 @@ public class SpawnManager : MonoBehaviour
         float xSpawnPosition = Random.Range(minXSpawnArea, maxXSpawnArea);
         float zSpawnPosition = Random.Range(minZSpawnArea, maxZSpawnArea);
         _spawnPoint = new Vector3(xSpawnPosition, 0.5f, zSpawnPosition);
-        //print("Trying to spawn at: " + _spawnPoint);
     }
 
     private void CheckSpawnPoint()
     {
-        //print("Checking SP...");
+        // Check if there are no coins in the vicinity
         int overlapSize = Physics.OverlapSphereNonAlloc(_spawnPoint, minSpawnRadius, _overlapColliders, spawnLayer);
-        //print(overlapSize);
-        
+
         if (overlapSize > 0)
         {
             _canSpawn = false;
-            //print("Spawning of " + _spawnPoint + " cancelled.");
         }
         else
         {
             _canSpawn = true;
-            //print("Spawning OK");
         }
     }
 
-    private void SpawnSphere()
+    private void SpawnCoin()
     {
         _objectPooler.SpawnFromPool("Coin", _spawnPoint, Quaternion.identity);
         _canSpawn = false;
-        //print("Spawned");
     }
 
-
-    private void PrintSpawnTimer()
-    {
-        //spawnText.text = _spawnTimer.ToString();
-    }
-    
-    
-    
-    
-    
-    
 }

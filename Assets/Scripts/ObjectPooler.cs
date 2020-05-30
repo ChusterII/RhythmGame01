@@ -29,7 +29,12 @@ public class ObjectPooler : MonoBehaviour
     public Dictionary<string, Queue<GameObject>> poolDictionary;
     
     // Start is called before the first frame update
-    void Start()
+    private void Start()
+    {
+        InitializeDictionary();
+    }
+
+    private void InitializeDictionary()
     {
         poolDictionary = new Dictionary<string, Queue<GameObject>>();
 
@@ -43,27 +48,26 @@ public class ObjectPooler : MonoBehaviour
                 obj.SetActive(false);
                 objectPool.Enqueue(obj);
             }
-            
+
             poolDictionary.Add(pool.tag, objectPool);
         }
     }
 
-    public GameObject SpawnFromPool(string tag, Vector3 position, Quaternion rotation)
+    public GameObject SpawnFromPool(string objectTag, Vector3 position, Quaternion rotation)
     {
-        if (!poolDictionary.ContainsKey(tag))
+        if (!poolDictionary.ContainsKey(objectTag))
         {
-            Debug.LogWarning("Pool with tag " + tag + " doesn't exist.");
+            // Pool doesn't exist
             return null;
         }
 
-        GameObject objectToSpawn = poolDictionary[tag].Dequeue();
+        GameObject objectToSpawn = poolDictionary[objectTag].Dequeue();
         
         objectToSpawn.SetActive(true);
         objectToSpawn.transform.position = position;
         objectToSpawn.transform.rotation = rotation;
         
-        // TODO: Jugar con esto, OP esta quitando coins validos para spawnear mas. Quizas moverlo a la destruccion de un coin?
-        poolDictionary[tag].Enqueue(objectToSpawn);
+        poolDictionary[objectTag].Enqueue(objectToSpawn);
 
         return objectToSpawn;
     }

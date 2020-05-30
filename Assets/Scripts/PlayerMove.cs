@@ -11,7 +11,9 @@ public class PlayerMove : MonoBehaviour
     
     private Camera _camera;
     private NavMeshAgent _agent;
-
+    [HideInInspector]
+    public bool movementEnabled;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -21,7 +23,7 @@ public class PlayerMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && movementEnabled)
         {
             MovePlayer();
         }
@@ -43,6 +45,7 @@ public class PlayerMove : MonoBehaviour
         _camera = Camera.main;
         _agent = GetComponent<NavMeshAgent>();
     }
+
 
 
     #region Touch Controls

@@ -169,13 +169,15 @@ MonoBehaviour:
   trackManager: {fileID: 1839439438}
   eventProvider: {fileID: 11400000, guid: 62e6510245fe9d34aaec17684bb89d4b, type: 2}
   coinMaterial: {fileID: 2100000, guid: bd310d0d712441c4d9217b29f7aeddaf, type: 2}
+  coinColor1: {r: 0, g: 0.33962262, b: 0, a: 1}
+  coinColor2: {r: 0, g: 1, b: 0, a: 1}
   cubeEffectAMaterial: {fileID: 2100000, guid: 864e8d3033b983649a5ab212ce7dde37, type: 2}
   cubeEffectBMaterial: {fileID: 2100000, guid: fb4021e60a6a01549aa320a82587af21, type: 2}
   cubeAColor1: {r: 1, g: 0.75, b: 0.9849999, a: 1}
   cubeAColor2: {r: 1, g: 0, b: 0.9921569, a: 1}
   cubeBColor1: {r: 1, g: 0, b: 0.9921569, a: 1}
   cubeBColor2: {r: 1, g: 0.75, b: 0.9849999, a: 1}
-  randomTrack: 0
+  randomTrack: 1
   currentTrack:
     trackName: 
     artist: 
@@ -1435,7 +1437,7 @@ MonoBehaviour:
   - tag: Coin
     prefab: {fileID: 3739125540241435965, guid: 95170ec4255d4bd4dabade28eb71a093,
       type: 3}
-    size: 40
+    size: 30
   - tag: Death Effect
     prefab: {fileID: 2406286454270343332, guid: 8e3a2eab9bbef5a41819824136ed353c,
       type: 3}
@@ -1577,7 +1579,8 @@ MonoBehaviour:
   spawnLayer:
     serializedVersion: 2
     m_Bits: 512
-  spawnText: {fileID: 0}
+  startingSpawnNumber: 3
+  spawnEnabled: 0
 --- !u!4 &366619699
 Transform:
   m_ObjectHideFlags: 0
@@ -7307,6 +7310,7 @@ MonoBehaviour:
   whatCanBeClickedOn:
     serializedVersion: 2
     m_Bits: 256
+  movementEnabled: 0
 --- !u!135 &630330812
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -12220,6 +12224,42 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+--- !u!1 &634744369
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 634744370}
+  m_Layer: 5
+  m_Name: StartCountdown
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &634744370
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 634744369}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1081813407}
+  m_Father: {fileID: 1122848370}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &767932540
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12471,7 +12511,9 @@ MonoBehaviour:
   jukeBox: {fileID: 11486263}
   borderMaterial: {fileID: 2100000, guid: 850c0c8b575ac184d9b7380064974ff1, type: 2}
   infoPanelMaterial: {fileID: 2100000, guid: b6f1ea63283b05a43b5edb9c3c44897d, type: 2}
-  originalBorderColor: {r: 0, g: 1, b: 1, a: 1}
+  startingBorderColor: {r: 0, g: 1, b: 1, a: 0}
+  countDownText: {fileID: 1081813408}
+  countDownTextAnimator: {fileID: 1081813410}
 --- !u!1001 &799196396
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13397,6 +13439,183 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1381730809}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1081813406
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1081813407}
+  - component: {fileID: 1081813409}
+  - component: {fileID: 1081813408}
+  - component: {fileID: 1081813410}
+  m_Layer: 5
+  m_Name: CountdownText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1081813407
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1081813406}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 634744370}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 1000, y: 600}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1081813408
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1081813406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: '#'
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: a01dfc0f454139548802073f22a2dfe1, type: 2}
+  m_sharedMaterial: {fileID: -2893740696295184482, guid: a01dfc0f454139548802073f22a2dfe1,
+    type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 1
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 11400000, guid: d485bd75853046f49b0ba6fbb5c154b6,
+    type: 2}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_outlineColor:
+    serializedVersion: 2
+    rgba: 4278190080
+  m_fontSize: 500
+  m_fontSizeBase: 500
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_textAlignment: 514
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_firstOverflowCharacterIndex: -1
+  m_linkedTextComponent: {fileID: 0}
+  m_isLinkedTextComponent: 0
+  m_isTextTruncated: 0
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_ignoreRectMaskCulling: 0
+  m_ignoreCulling: 1
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_VertexBufferAutoSizeReduction: 1
+  m_firstVisibleCharacter: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_textInfo:
+    textComponent: {fileID: 1081813408}
+    characterCount: 1
+    spriteCount: 0
+    spaceCount: 0
+    wordCount: 1
+    linkCount: 0
+    lineCount: 1
+    pageCount: 1
+    materialCount: 1
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_spriteAnimator: {fileID: 0}
+  m_hasFontAssetChanged: 0
+  m_subTextObjects:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &1081813409
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1081813406}
+  m_CullTransparentMesh: 0
+--- !u!95 &1081813410
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1081813406}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: db757ede3854f4440b965fbe0e9001f8, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1122848366
 GameObject:
   m_ObjectHideFlags: 0
@@ -13493,6 +13712,7 @@ RectTransform:
   - {fileID: 799342222}
   - {fileID: 131544078}
   - {fileID: 1912754706}
+  - {fileID: 634744370}
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -19327,6 +19547,62 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 055a77530a5691541841dfa61e2ccb69, type: 3}
+--- !u!1 &1386908730
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1386908731}
+  - component: {fileID: 1386908733}
+  - component: {fileID: 1386908732}
+  m_Layer: 0
+  m_Name: RhythmAnalizer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1386908731
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1386908730}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1903283910}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1386908732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1386908730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b6c2409f9b8d84a87fa97c73f62b7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1386908733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1386908730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3d058bbfd16b5a44ad811d4da6c2226, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1397554344
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -25786,7 +26062,7 @@ MonoBehaviour:
     track: {fileID: 8300000, guid: a771d6019f13e914497770858a0b5cb3, type: 3}
     volume: 0.496
     pitch: 1
-    trackBpm: 99
+    trackBpm: 99.00323
     rhythmData: {fileID: 11400000, guid: f16320f676fbceb43a4152bd99b8fa38, type: 2}
   - trackName: Church of 8 Wheels
     artist: Otis McDonald
@@ -25795,6 +26071,41 @@ MonoBehaviour:
     pitch: 1
     trackBpm: 107.66
     rhythmData: {fileID: 11400000, guid: f5dfcd8a0302ab74a8824365b08ae193, type: 2}
+  - trackName: Cubic Z
+    artist: Diamond Ortiz
+    track: {fileID: 8300000, guid: 2cf4a4d0f3e84c14e9bcb592b13be1b9, type: 3}
+    volume: 0.496
+    pitch: 1
+    trackBpm: 107.666
+    rhythmData: {fileID: 11400000, guid: 8cc55c0ccdcbd484ea42079b7af86522, type: 2}
+  - trackName: Felicity
+    artist: Distance
+    track: {fileID: 8300000, guid: e3fc67c0dc86f4742b6ea83d9db8c2e1, type: 3}
+    volume: 0.496
+    pitch: 1
+    trackBpm: 150.2316
+    rhythmData: {fileID: 11400000, guid: a9ced5e10452a834baaa441049741194, type: 2}
+  - trackName: IDCIDK
+    artist: Geographer
+    track: {fileID: 8300000, guid: 27373e57c6450d243802d8cf78eb024b, type: 3}
+    volume: 0.496
+    pitch: 1
+    trackBpm: 114.8438
+    rhythmData: {fileID: 11400000, guid: c37ea1f97acb0b045b0c65a1bb58d6d8, type: 2}
+  - trackName: Love Now
+    artist: Eveningland
+    track: {fileID: 8300000, guid: 2ef2522f8554ca442973d4cf833c0cb1, type: 3}
+    volume: 0.496
+    pitch: 1
+    trackBpm: 126.048
+    rhythmData: {fileID: 11400000, guid: d2d41a6efd3b8bc42bdccad3e593e3df, type: 2}
+  - trackName: Seven Twenty
+    artist: Diamond Ortiz
+    track: {fileID: 8300000, guid: 8638cfde8953bd844848e28ee9289ac0, type: 3}
+    volume: 0.496
+    pitch: 1
+    trackBpm: 110.9
+    rhythmData: {fileID: 11400000, guid: 5a902a54f2110cc43b3cdf93b0eff19a, type: 2}
 --- !u!1 &1894936401
 GameObject:
   m_ObjectHideFlags: 0
@@ -30866,6 +31177,7 @@ Transform:
   - {fileID: 11486262}
   - {fileID: 5204918785676603281}
   - {fileID: 796753173}
+  - {fileID: 1386908731}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -31888,6 +32200,9 @@ MonoBehaviour:
   rhythmPlayer: {fileID: 11486264}
   audioSource: {fileID: 11486265}
   uiManager: {fileID: 796753174}
+  jukebox: {fileID: 11486263}
+  spawnManager: {fileID: 366619698}
+  player: {fileID: 630330811}
   scoringValues:
   - scoringGrade: 0
     scoreValue: 100

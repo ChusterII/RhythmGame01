@@ -12,7 +12,11 @@ public class JukeBox : MonoBehaviour
     
     public TrackManager trackManager;
     public RhythmEventProvider eventProvider;
+    
+    [Header("Coin Effects")]
     public Material coinMaterial;
+    public Color coinColor1;
+    public Color coinColor2;
     
     [Header("Cube Effects")]
     public Material cubeEffectAMaterial;
@@ -30,6 +34,8 @@ public class JukeBox : MonoBehaviour
     public Track currentTrack;
     private AudioSource _audioSource;
 
+    private int beatcount;
+
     private void Awake()
     {
         InitializeComponents();   
@@ -43,7 +49,7 @@ public class JukeBox : MonoBehaviour
 
     void Start()
     {
-        _audioSource.Play();
+        
     }
 
     private void DoTweenSetup()
@@ -63,12 +69,11 @@ public class JukeBox : MonoBehaviour
     private void OnBeat(Beat beat)
     {
         float secondsPerBeat = CalculateSecondsPerBeat(beat);
-        PulseCoinColor(secondsPerBeat / 2f);
-        //if (!_effectIsPulsing)
-        //{
-            PulseCubeEffectColor(secondsPerBeat / 2f);
-          //  _effectIsPulsing = false;
-        //}
+        PulseCoinColor((secondsPerBeat) / 2f);
+        PulseCubeEffectColor(secondsPerBeat / 2f);
+        
+        print(beatcount);
+        beatcount++;
     }
 
     private void InitializeComponents()
@@ -87,6 +92,7 @@ public class JukeBox : MonoBehaviour
     {
         _audioSource.clip = currentTrack.track;
         _rhythmPlayer.rhythmData = currentTrack.rhythmData;
+        
     }
     
     private void PickTrackToPlay()
@@ -99,7 +105,8 @@ public class JukeBox : MonoBehaviour
         else
         {
             // TODO: REMOVE HARDCODE
-            currentTrack = Array.Find(trackManager.tracks, track => track.trackName == "Church of 8 Wheels");
+            currentTrack = Array.Find(trackManager.tracks, track => track.trackName == "Seven Twenty");
+            
         }
     }
 
@@ -110,9 +117,6 @@ public class JukeBox : MonoBehaviour
 
     private void PulseCubeEffectColor(float time)
     {
-        //_effectIsPulsing = true;
-        
-        // TODO: WAY TOO DISTRACTING. MAYBE MAKE IT SLOWER?
         Sequence cubeEffectPulseSequence = DOTween.Sequence();
         
         // TWO COLOR SEQUENCE FOR ONE CUBE EFFECT
@@ -128,6 +132,11 @@ public class JukeBox : MonoBehaviour
 
         cubeEffectPulseSequence.Play();
     }
+
+    public void PlaySong()
+    {
+        _audioSource.Play();
+    }
     
     
     private void PulseCoinColor(float halfBeat)
@@ -136,18 +145,18 @@ public class JukeBox : MonoBehaviour
         Sequence coinPulseSequence = DOTween.Sequence();
         
         // TWO COLOR SEQUENCE WITH TWO VARIABLES
-        coinPulseSequence.Append(coinMaterial.DOColor(Color.green, "_BaseColor", halfBeat));
-        coinPulseSequence.Insert(0, coinMaterial.DOColor(Color.green, "_EmissionColor", halfBeat));
-        coinPulseSequence.Append(coinMaterial.DOColor(Color.grey, "_BaseColor", halfBeat));
-        coinPulseSequence.Insert(1, coinMaterial.DOColor(Color.grey, "_EmissionColor", halfBeat));
+        coinPulseSequence.Append(coinMaterial.DOColor(coinColor2, "_BaseColor", halfBeat));
+        coinPulseSequence.Insert(0, coinMaterial.DOColor(coinColor2, "_EmissionColor", halfBeat));
+        coinPulseSequence.Append(coinMaterial.DOColor(coinColor1, "_BaseColor", halfBeat));
+        coinPulseSequence.Insert(1, coinMaterial.DOColor(coinColor1, "_EmissionColor", halfBeat));
 
         coinPulseSequence.Play();
     }
 
     private void ResetMaterialsColor()
     {
-        coinMaterial.SetColor("_BaseColor", Color.green);
-        coinMaterial.SetColor("_EmissionColor", Color.green);
+        coinMaterial.SetColor("_BaseColor", coinColor2);
+        coinMaterial.SetColor("_EmissionColor", coinColor2);
         cubeEffectAMaterial.SetColor("_BaseColor", cubeAColor1);
         cubeEffectAMaterial.SetColor("_EmissionColor", cubeAColor1);
         cubeEffectBMaterial.SetColor("_BaseColor", cubeBColor1);
