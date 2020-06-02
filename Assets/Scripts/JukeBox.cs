@@ -16,8 +16,6 @@ public class JukeBox : MonoBehaviour
 
     [Header("Coin Effects")]
     public Material coinMaterial;
-    //public Color coinColor1; // MIGHT NOT NEED
-    //public Color coinColor2; // MIGHT NOT NEED
     [Range(0f, 0.01f)]
     public float pulseErrorMargin;
     

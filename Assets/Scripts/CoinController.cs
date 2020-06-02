@@ -18,13 +18,13 @@ public class CoinController : MonoBehaviour
     private ObjectPooler _objectPooler;
     private GameObject _deathEffect;
     private GameManager _gameManager;
-    private Animator _animator;
+    private ScoringValues _scoreValue;
+    
 
     private void Start()
     {
         _objectPooler = ObjectPooler.Instance;
         _gameManager = GameManager.Instance;
-        _animator = GetComponent<Animator>();
         floatingTextObject.SetActive(false);
     }
 
@@ -55,9 +55,9 @@ public class CoinController : MonoBehaviour
     private void ShowFloatingText(ScoringGrade scoringGrade)
     {
         floatingTextObject.SetActive(true);
-        ScoringValues scoreVal = GameManager.Instance.scoringValues.Find(values => values.scoringGrade == scoringGrade);
-        floatingText.text = scoreVal.textValue;
-        floatingText.color = scoreVal.textColor;
+        _scoreValue = _gameManager.scoringValues.Find(values => values.scoringGrade == scoringGrade);
+        floatingText.text = _scoreValue.textValue;
+        floatingText.color = _scoreValue.textColor;
     }
 
     private void DestroyCoin()
@@ -87,10 +87,4 @@ public class CoinController : MonoBehaviour
     {
         floatingTextObject.SetActive(false);
     }
-
-    /*private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawSphere(transform.position, 4f);
-    }*/
 }

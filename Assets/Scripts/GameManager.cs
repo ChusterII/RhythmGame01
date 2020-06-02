@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using MEC;
 using RhythmTool;
@@ -41,6 +42,8 @@ public class GameManager : MonoBehaviour
     public int multiplier;
     [HideInInspector] 
     public int lastScore;
+    [HideInInspector]
+    public ScoringGrade lastScoringGrade;
 
     [Header("Configuration")]
     public RhythmEventProvider eventProvider;
@@ -67,23 +70,21 @@ public class GameManager : MonoBehaviour
     public Material maxMultiplierMaterial;
     public Color normalMultiplierColor;
     public Color maxMultiplierColor;
-    
-    
-    
+
+    // --------------- Private variables here ---------------
     private List<Beat> _listBeat;
     private Track<Beat> _trackBeat;
-    
     private Dictionary<ScoringGrade, int> _scoreValuesDictionary;
-
     private int _multiplierProgressCounter;
     private bool _reachedMaxMultiplier;
-    private float _playTimer;
+    private ScoringGrade _scoringGrade;
+    
+    
     
     
     // Start is called before the first frame update
     void Start()
     {
-        
         InitializeScore();
         InitializeDictionary();
         InitializeStartingVariables();
@@ -94,7 +95,7 @@ public class GameManager : MonoBehaviour
     private void InitializeStartingVariables()
     {
         player.movementEnabled = false;
-        _playTimer = 0;
+        lastScoringGrade = ScoringGrade.Bad;
     }
 
     private void InitializeScore()
@@ -112,11 +113,6 @@ public class GameManager : MonoBehaviour
         {
             _scoreValuesDictionary.Add(s.scoringGrade, s.scoreValue);
         }
-    }
-
-    private void PlayTimerTick()
-    {
-        _playTimer += Time.deltaTime;
     }
 
     private IEnumerator<float> _PlayGame()
@@ -137,6 +133,26 @@ public class GameManager : MonoBehaviour
         player.movementEnabled = true;
     }
 
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            ScoringGrade currentScoringGrade = GetScoringGrade(GetTimingScore());
+            print("This grade: " + currentScoringGrade + " |||| Last grade: " + lastScoringGrade);
+            if (currentScoringGrade == ScoringGrade.Perfect && lastScoringGrade == ScoringGrade.Perfect)
+            {
+                print("Awesome");
+                
+            }
+            else
+            {
+                print(currentScoringGrade);
+            }
+
+            lastScoringGrade = currentScoringGrade;
+        }
+    }
+
 
     public ScoringGrade CalculateScore()
     {
@@ -144,15 +160,15 @@ public class GameManager : MonoBehaviour
         float timingScore = GetTimingScore();
 
         // Get a scoring grade depending on the timing score
-        ScoringGrade scoringGrade = GetScoringGrade(timingScore);
+        _scoringGrade = GetScoringGrade(timingScore);
 
-        // Setup and calculate the multiplier
-        MultiplierSetup(scoringGrade);
+        // Setup and calculate the multiplier based on the Scoring Grade
+        MultiplierSetup(_scoringGrade);
         
         // Increase the score based on the grade multiplied by the current multiplier
-        lastScore = IncreaseScore(_scoreValuesDictionary[scoringGrade] * multiplier);
+        lastScore = IncreaseScore(_scoreValuesDictionary[_scoringGrade] * multiplier);
 
-        return scoringGrade;
+        return _scoringGrade;
     }
 
     private void MultiplierSetup(ScoringGrade scoringGrade)
