@@ -4,19 +4,22 @@ using System.Collections.Generic;
 using DG.Tweening;
 using RhythmTool;
 using UnityEngine;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public class JukeBox : MonoBehaviour
 {
-    
-    
+    [Header("Basic settings")]
     public TrackManager trackManager;
     public RhythmEventProvider eventProvider;
-    
+    public bool randomTrack;
+
     [Header("Coin Effects")]
     public Material coinMaterial;
-    public Color coinColor1;
-    public Color coinColor2;
+    //public Color coinColor1; // MIGHT NOT NEED
+    //public Color coinColor2; // MIGHT NOT NEED
+    [Range(0f, 0.01f)]
+    public float pulseErrorMargin;
     
     [Header("Cube Effects")]
     public Material cubeEffectAMaterial;
@@ -25,16 +28,14 @@ public class JukeBox : MonoBehaviour
     public Color cubeAColor2;
     public Color cubeBColor1;
     public Color cubeBColor2;
-    //private bool _effectIsPulsing = false;
-    
-    public bool randomTrack;
 
+    // --------------- Private variables here ---------------
     private RhythmPlayer _rhythmPlayer;
     [HideInInspector]
     public Track currentTrack;
     private AudioSource _audioSource;
-
-    private int beatcount;
+    private Track<Beat> _beats;
+    
 
     private void Awake()
     {
@@ -54,6 +55,7 @@ public class JukeBox : MonoBehaviour
 
     private void DoTweenSetup()
     {
+        DOTween.Init();
         DOTween.defaultAutoPlay = AutoPlay.AutoPlayTweeners;
     }
 
@@ -68,13 +70,38 @@ public class JukeBox : MonoBehaviour
     /// <param name="beat">The current beat</param>
     private void OnBeat(Beat beat)
     {
-        float secondsPerBeat = CalculateSecondsPerBeat(beat);
-        PulseCoinColor((secondsPerBeat) / 2f);
-        PulseCubeEffectColor(secondsPerBeat / 2f);
-        
-        print(beatcount);
-        beatcount++;
+        BeatPulseController(beat);
     }
+
+    private void BeatPulseController(Beat beat)
+    {
+        //Get the current time in the song
+        float time = _rhythmPlayer.time;
+
+        //Find the index of this beat
+        int thisIndex = _beats.GetIndex(time);
+
+        // Check if song isn't over
+        if (thisIndex < _beats.count)
+        {
+            // Calculate the half of the difference in seconds between beats
+            float pulseTime = (CalculateBeatDifference(beat, thisIndex) / 2f ) - pulseErrorMargin;
+
+            // Pulse the elements on screen based on the modified difference minus an error margin
+            PulseCoinColor(pulseTime);
+            PulseCubeEffectColor(pulseTime);
+        }
+    }
+
+    private float CalculateBeatDifference(Beat beat, int index)
+    {
+        // Get the next beat
+        Beat nextBeat = _beats[index];
+
+        // Take the difference in seconds between the next beat and this one
+        return nextBeat.timestamp - beat.timestamp;
+    }
+
 
     private void InitializeComponents()
     {
@@ -92,7 +119,7 @@ public class JukeBox : MonoBehaviour
     {
         _audioSource.clip = currentTrack.track;
         _rhythmPlayer.rhythmData = currentTrack.rhythmData;
-        
+        _beats = _rhythmPlayer.rhythmData.GetTrack<Beat>();
     }
     
     private void PickTrackToPlay()
@@ -105,14 +132,9 @@ public class JukeBox : MonoBehaviour
         else
         {
             // TODO: REMOVE HARDCODE
-            currentTrack = Array.Find(trackManager.tracks, track => track.trackName == "Seven Twenty");
+            currentTrack = Array.Find(trackManager.tracks, track => track.trackName == "Cubic Z");
             
         }
-    }
-
-    private float CalculateSecondsPerBeat(Beat beat)
-    {
-        return 60f / beat.bpm; ;
     }
 
     private void PulseCubeEffectColor(float time)
@@ -137,26 +159,23 @@ public class JukeBox : MonoBehaviour
     {
         _audioSource.Play();
     }
-    
-    
-    private void PulseCoinColor(float halfBeat)
-    {
 
+    private void PulseCoinColor(float time)
+    {
         Sequence coinPulseSequence = DOTween.Sequence();
-        
-        // TWO COLOR SEQUENCE WITH TWO VARIABLES
-        coinPulseSequence.Append(coinMaterial.DOColor(coinColor2, "_BaseColor", halfBeat));
-        coinPulseSequence.Insert(0, coinMaterial.DOColor(coinColor2, "_EmissionColor", halfBeat));
-        coinPulseSequence.Append(coinMaterial.DOColor(coinColor1, "_BaseColor", halfBeat));
-        coinPulseSequence.Insert(1, coinMaterial.DOColor(coinColor1, "_EmissionColor", halfBeat));
+
+        coinPulseSequence.Append(coinMaterial.DOFloat(-0.15f, "_Glow", time));
+        coinPulseSequence.Append(coinMaterial.DOFloat(0f, "_Glow", time));
 
         coinPulseSequence.Play();
     }
 
     private void ResetMaterialsColor()
     {
-        coinMaterial.SetColor("_BaseColor", coinColor2);
-        coinMaterial.SetColor("_EmissionColor", coinColor2);
+        
+        coinMaterial.SetFloat("_Glow", 0f);
+        //coinMaterial.SetColor("_BaseColor", coinColor2);
+        //coinMaterial.SetColor("_EmissionColor", coinColor2);
         cubeEffectAMaterial.SetColor("_BaseColor", cubeAColor1);
         cubeEffectAMaterial.SetColor("_EmissionColor", cubeAColor1);
         cubeEffectBMaterial.SetColor("_BaseColor", cubeBColor1);

@@ -30,7 +30,9 @@ public class UIManager : MonoBehaviour
     [Header("Multiplier")] 
     public Renderer[] multiplierProgress;
     public TextMeshProUGUI multiplierText;
+    public Animator multiplierTextAnimator;
     public TextMeshProUGUI maxMultiplierText;
+    public Animator maxMultiplierTextAnimator;
     
     [Header("Multiplier Effects")] 
     public ParticleSystem[] multiplierEffects;
@@ -82,18 +84,22 @@ public class UIManager : MonoBehaviour
 
     public IEnumerator<float> _StartCountdown()
     {
-        countDownText.text = "3";
-        countDownTextAnimator.SetTrigger("PlayCountdown");
+        SetCountdownText("4");
         yield return Timing.WaitForSeconds(1f);
-        countDownText.text = "2";
-        countDownTextAnimator.SetTrigger("PlayCountdown");
+        SetCountdownText("3");
         yield return Timing.WaitForSeconds(1f);
-        countDownText.text = "1";
-        countDownTextAnimator.SetTrigger("PlayCountdown");
+        SetCountdownText("2");
         yield return Timing.WaitForSeconds(1f);
-        countDownText.text = "Go!";
-        countDownTextAnimator.SetTrigger("PlayCountdown");
+        SetCountdownText("1");
         yield return Timing.WaitForSeconds(1f);
+        SetCountdownText("Go!");
+        yield return Timing.WaitForSeconds(1f);
+    }
+
+    private void SetCountdownText(string text)
+    {
+        countDownText.text = text;
+        countDownTextAnimator.SetTrigger("PlayCountdown");
     }
 
     private void JukeBoxInfoPanelFadeIn()
@@ -129,6 +135,7 @@ public class UIManager : MonoBehaviour
     public void UpdateMultiplier(string multiplier)
     {
         multiplierText.text = multiplier;
+        multiplierTextAnimator.SetTrigger("IncreaseMultiplier");
     }
 
     public void UpdateMultiplierProgress(int index, Material mat)
@@ -158,6 +165,10 @@ public class UIManager : MonoBehaviour
     public void SetMaxMultiplierText(bool value)
     {
         maxMultiplierText.gameObject.SetActive(value);
+        if (value)
+        {
+            maxMultiplierTextAnimator.SetTrigger("IncreaseMultiplier");
+        }
         multiplierText.gameObject.SetActive(!value);
     }
 

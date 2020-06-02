@@ -63,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: bd310d0d712441c4d9217b29f7aeddaf, type: 2}
+  - {fileID: 2100000, guid: c04b609f106015f41b77defafa90ce8d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -128,11 +128,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cef1a6b76aeaa64b9c8f85ff7d2beab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  floatingText: {fileID: 4003354126730450066}
   coinRenderer: {fileID: 3739125540241435966}
   coinCollider: {fileID: 3739125540241435967}
   traumaInducer: {fileID: -3932366335246027189}
-  floatText: {fileID: 4003354126730450065}
+  floatingTextObject: {fileID: 4003354126730450066}
+  floatingText: {fileID: 4003354126730450065}
 --- !u!114 &-3932366335246027189
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -145,9 +145,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47b6b88d425f7234aae309cb9a973743, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Delay: 1
-  MaximumStress: 0.6
-  Range: 45
+  maximumStress: 0.6
+  range: 45
 --- !u!1 &4003354126730450066
 GameObject:
   m_ObjectHideFlags: 0

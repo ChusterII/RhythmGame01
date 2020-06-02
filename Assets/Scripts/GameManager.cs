@@ -122,7 +122,7 @@ public class GameManager : MonoBehaviour
     private IEnumerator<float> _PlayGame()
     {
         // Wait a few seconds
-        yield return Timing.WaitForSeconds(2f);
+        yield return Timing.WaitForSeconds(1f);
         
         // Start playing the song
         jukebox.PlaySong();
@@ -283,5 +283,4 @@ public class GameManager : MonoBehaviour
         uiManager.UpdateScore();
     }
 
-    
 }

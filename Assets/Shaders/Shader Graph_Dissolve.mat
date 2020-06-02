@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Shader Graphs_S_Grid
-  m_Shader: {fileID: -6465566751694194690, guid: 4a3e1861c325fad4989bd5881f2c2574,
+  m_Name: Shader Graph_Dissolve
+  m_Shader: {fileID: -6465566751694194690, guid: 498b2204844d95d429e9458a6ea12dd3,
     type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -21,8 +21,8 @@ Material:
     serializedVersion: 3
     m_TexEnvs: []
     m_Floats:
-    - Vector1_F2F0AC7: 100
-    - _Strength: 100
+    - DissolveValue: 1
+    - EdgeWidth: 0.01
+    - NoiseScale: 30
     m_Colors:
-    - Color_DA74C5F9: {r: 0, g: 0.9123449, b: 1, a: 0}
-    - _Color: {r: 0, g: 209.67673, b: 229.57463, a: 229.57463}
+    - EdgeColor: {r: 0, g: 5.145098, b: 16, a: 0}

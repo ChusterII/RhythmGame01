@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Net.NetworkInformation;
 using Unity.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -32,6 +33,7 @@ public class SpawnManager : MonoBehaviour
     private ObjectPooler _objectPooler;
     private Collider[] _overlapColliders;
     private int _spawnedCounter;
+    
 
     [HideInInspector]
     public bool spawnEnabled;
@@ -47,17 +49,30 @@ public class SpawnManager : MonoBehaviour
     private void InitializeComponents()
     {
         _objectPooler = ObjectPooler.Instance;
-        _overlapColliders = new Collider[3];
+        _overlapColliders = new Collider[9];
     }
 
     private void InitializePreSpawn()
     {
         // Initial pre-spawn
-        for (int i = 0; i < startingSpawnNumber; i++)
+        int spawnedCoins = 0;
+        while (spawnedCoins < startingSpawnNumber)
         {
             SelectSpawnPoint();
             CheckSpawnPoint();
-            SpawnCoin();
+            if (_canSpawn)
+            {
+                // Prespawn coins and set them to appear on screen slowly
+                GameObject currentCoin = SpawnCoin();
+                currentCoin.GetComponent<Animator>().speed = 0.05f;
+                
+                // Increase prespawned coin counter
+                spawnedCoins++;
+                
+                // Instantiating and Spherecasting can't be done in the same frame, so instead of skipping a frame
+                // we tell the Physics engine to sync the transforms
+                Physics.SyncTransforms();
+            }
         }
     }
 
@@ -109,7 +124,6 @@ public class SpawnManager : MonoBehaviour
     {
         // Check if there are no coins in the vicinity
         int overlapSize = Physics.OverlapSphereNonAlloc(_spawnPoint, minSpawnRadius, _overlapColliders, spawnLayer);
-
         if (overlapSize > 0)
         {
             _canSpawn = false;
@@ -120,10 +134,10 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
-    private void SpawnCoin()
+    private GameObject SpawnCoin()
     {
-        _objectPooler.SpawnFromPool("Coin", _spawnPoint, Quaternion.identity);
         _canSpawn = false;
+        return _objectPooler.SpawnFromPool("Coin", _spawnPoint, Quaternion.identity);
     }
 
 }

@@ -8,24 +8,24 @@ using UnityEngine;
 public class CoinController : MonoBehaviour
 {
     
-    public GameObject floatingText;
-    
-
     
     public Renderer coinRenderer;
     public Collider coinCollider;
     public TraumaInducer traumaInducer;
-
-    public TextMeshPro floatText;
+    public GameObject floatingTextObject;
+    public TextMeshPro floatingText;
+    
     private ObjectPooler _objectPooler;
     private GameObject _deathEffect;
     private GameManager _gameManager;
+    private Animator _animator;
 
     private void Start()
     {
         _objectPooler = ObjectPooler.Instance;
         _gameManager = GameManager.Instance;
-        floatingText.SetActive(false);
+        _animator = GetComponent<Animator>();
+        floatingTextObject.SetActive(false);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -54,10 +54,10 @@ public class CoinController : MonoBehaviour
 
     private void ShowFloatingText(ScoringGrade scoringGrade)
     {
-        floatingText.SetActive(true);
+        floatingTextObject.SetActive(true);
         ScoringValues scoreVal = GameManager.Instance.scoringValues.Find(values => values.scoringGrade == scoringGrade);
-        floatText.text = scoreVal.textValue;
-        floatText.color = scoreVal.textColor;
+        floatingText.text = scoreVal.textValue;
+        floatingText.color = scoreVal.textColor;
     }
 
     private void DestroyCoin()
@@ -85,8 +85,12 @@ public class CoinController : MonoBehaviour
 
     private void DisableFloatingText()
     {
-        floatingText.SetActive(false);
+        floatingTextObject.SetActive(false);
     }
 
-    
+    /*private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawSphere(transform.position, 4f);
+    }*/
 }

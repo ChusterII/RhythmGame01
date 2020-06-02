@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Shader Graphs_Dissolve1
-  m_Shader: {fileID: -6465566751694194690, guid: 498b2204844d95d429e9458a6ea12dd3,
+  m_Name: Shader Graphs_Shader Graph_M_Coin_rect
+  m_Shader: {fileID: -6465566751694194690, guid: df7117d6eeb72c14f91d8dbbe8f3d11c,
     type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -21,8 +21,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs: []
     m_Floats:
-    - DissolveValue: 1
-    - EdgeWidth: 0.01
-    - NoiseScale: 30
+    - _Glow: 1
     m_Colors:
-    - EdgeColor: {r: 0, g: 5.145098, b: 16, a: 0}
+    - _BaseColor: {r: 1, g: 1, b: 1, a: 0}
+    - _EmissionColor: {r: 0, g: 1, b: 0, a: 1}
