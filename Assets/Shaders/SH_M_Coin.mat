@@ -22,7 +22,7 @@ Material:
     m_TexEnvs: []
     m_Floats:
     - Glow: 0
-    - _Glow: -0.101379625
+    - _Glow: -0.077867605
     m_Colors:
     - EmissionColor: {r: 0, g: 1, b: 0, a: 1}
     - _BaseColor: {r: 0, g: 1, b: 0, a: 1}

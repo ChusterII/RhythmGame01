@@ -33,7 +33,8 @@ public class SpawnManager : MonoBehaviour
     private ObjectPooler _objectPooler;
     private Collider[] _overlapColliders;
     private int _spawnedCounter;
-    
+    private GameObject _currentCoin;
+
 
     [HideInInspector]
     public bool spawnEnabled;
@@ -63,9 +64,9 @@ public class SpawnManager : MonoBehaviour
             if (_canSpawn)
             {
                 // Prespawn coins and set them to appear on screen slowly
-                GameObject currentCoin = SpawnCoin();
-                currentCoin.GetComponent<Animator>().speed = 0.05f;
-                
+                _currentCoin = SpawnCoin();
+                _currentCoin.GetComponent<Animator>().speed = 0.05f;
+
                 // Increase prespawned coin counter
                 spawnedCoins++;
                 

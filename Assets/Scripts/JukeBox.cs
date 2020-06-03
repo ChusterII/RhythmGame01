@@ -51,10 +51,16 @@ public class JukeBox : MonoBehaviour
         
     }
 
+    /// <summary>
+    /// Initializes DoTween and sets it to only autoplay tweeners (not sequences).
+    /// Also, sets it to use safeMode to tweens and sequences auto-destroy themselves after
+    /// an object has been killed or disabled. 
+    /// </summary>
     private void DoTweenSetup()
     {
         DOTween.Init();
         DOTween.defaultAutoPlay = AutoPlay.AutoPlayTweeners;
+        DOTween.useSafeMode = true;
     }
 
     // Update is called once per frame

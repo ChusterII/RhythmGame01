@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using MEC;
 using RhythmTool;
 using UnityEngine;
@@ -12,6 +13,13 @@ public enum ScoringGrade
     Great,
     Ok,
     Bad
+}
+
+public enum CurrentState
+{
+    Intro,
+    Main,
+    Ending
 }
 
 [System.Serializable]
@@ -35,27 +43,27 @@ public class GameManager : MonoBehaviour
     }
 
     #endregion
-    
-    [HideInInspector]
-    public int totalScore;
-    [HideInInspector]
-    public int multiplier;
-    [HideInInspector] 
-    public int lastScore;
-    [HideInInspector]
-    public ScoringGrade lastScoringGrade;
 
-    [Header("Configuration")]
-    public RhythmEventProvider eventProvider;
+    [HideInInspector] public int totalScore;
+    [HideInInspector] public int multiplier;
+    [HideInInspector] public int lastScore;
+
+
+    [Header("Configuration")] public RhythmEventProvider eventProvider;
     public RhythmPlayer rhythmPlayer;
     public AudioSource audioSource; // puede que sobre
     public UIManager uiManager;
     public JukeBox jukebox;
     public SpawnManager spawnManager;
     public PlayerMove player;
+    public LayerMask spawnLayer;
 
     [Header("Scoring")]
     public List<ScoringValues> scoringValues;
+
+    [Space(10f)]
+    [Tooltip("Value of each consecutive PERFECT beat, multiplied by consecutive beats")]
+    public int consecutiveScoreValue;
 
     [Space(10f)]
     public int maxBadValue;
@@ -78,6 +86,14 @@ public class GameManager : MonoBehaviour
     private int _multiplierProgressCounter;
     private bool _reachedMaxMultiplier;
     private ScoringGrade _scoringGrade;
+    private ScoringGrade _currentScoringGrade;
+    private ScoringGrade _lastScoringGrade;
+    private bool _coinCollected;
+    private int _consecutiveMultiplier;
+    private CurrentState _state;
+    private Collider[] _overlapColliders;
+    private bool _isConsecutiveScore;
+    
     
     
     
@@ -95,13 +111,17 @@ public class GameManager : MonoBehaviour
     private void InitializeStartingVariables()
     {
         player.movementEnabled = false;
-        lastScoringGrade = ScoringGrade.Bad;
+        _coinCollected = false;
+        _state = CurrentState.Intro;
+        _lastScoringGrade = ScoringGrade.Bad;
+        _overlapColliders = new Collider[3];
     }
 
     private void InitializeScore()
     {
         totalScore = 0;
         multiplier = 1;
+        _consecutiveMultiplier = 0; // Starts at 0 because we're not counting the first "Perfect" for consecutiveness purposes
         _multiplierProgressCounter = -1; // Starts at -1 so it's the same as the index of the multiplierProgress array.
         uiManager.SetMaxMultiplierText(false);
     }
@@ -135,24 +155,39 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (_coinCollected)
         {
-            ScoringGrade currentScoringGrade = GetScoringGrade(GetTimingScore());
-            print("This grade: " + currentScoringGrade + " |||| Last grade: " + lastScoringGrade);
-            if (currentScoringGrade == ScoringGrade.Perfect && lastScoringGrade == ScoringGrade.Perfect)
+            // Check if there is more than one continuous Perfect score
+            if ((_currentScoringGrade == ScoringGrade.Perfect && _lastScoringGrade == ScoringGrade.Perfect) || (_currentScoringGrade == ScoringGrade.Perfect && _state == CurrentState.Intro))
             {
-                print("Awesome");
+                // First time it enters, we're no longer in the Intro of the game.
+                _state = CurrentState.Main;
                 
+                // Increase the continous Perfect counter
+                _consecutiveMultiplier++;
             }
             else
             {
-                print(currentScoringGrade);
+                // We reset the multiplier since the player missed a continuous Perfect match OR this is his first perfect
+                _consecutiveMultiplier = 0;
             }
-
-            lastScoringGrade = currentScoringGrade;
+            _lastScoringGrade = _currentScoringGrade;
+            _coinCollected = false;
+        }
+        else
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                // Check if the player will NOT destroy a coin after the move
+                int overlapSize = Physics.OverlapSphereNonAlloc(player.GetDestination(), 0.501f, _overlapColliders, spawnLayer);
+                if (overlapSize <= 0)
+                {
+                    // Player clicked somewhere except in a coin, so he loses the consecutive multiplier.
+                    _consecutiveMultiplier = 0;
+                }
+            }
         }
     }
-
 
     public ScoringGrade CalculateScore()
     {
@@ -161,12 +196,38 @@ public class GameManager : MonoBehaviour
 
         // Get a scoring grade depending on the timing score
         _scoringGrade = GetScoringGrade(timingScore);
-
+        
         // Setup and calculate the multiplier based on the Scoring Grade
         MultiplierSetup(_scoringGrade);
-        
-        // Increase the score based on the grade multiplied by the current multiplier
-        lastScore = IncreaseScore(_scoreValuesDictionary[_scoringGrade] * multiplier);
+
+        // If grade was perfect, multiply the score even more for each consecutive multiplier
+        if (_scoringGrade == ScoringGrade.Perfect)
+        {
+            if (_consecutiveMultiplier < 1)
+            {
+                // Failsafe so we don't accidentally multiply the score by 0 or less.
+                _consecutiveMultiplier = 1;
+            }
+
+            _isConsecutiveScore = _consecutiveMultiplier > 1;
+
+            // Calculate the consecutive score to add to the main score.
+            // The first one doesn't count so it'll be 0. We start counting after the second one.
+            int consecutiveScore = (_consecutiveMultiplier - 1) * consecutiveScoreValue;
+            //print("Consecutive score: " + consecutiveScore);
+
+            // Increase the score based on the grade multiplied by the current multiplier
+            lastScore = IncreaseScore((_scoreValuesDictionary[_scoringGrade] * multiplier) + consecutiveScore);
+        }
+        else
+        {
+            _isConsecutiveScore = false;
+            // If grade was not perfect, increase the score based on the grade multiplied by the current multiplier
+            lastScore = IncreaseScore(_scoreValuesDictionary[_scoringGrade] * multiplier);
+        }
+
+        // We save the current scoring grade
+        _currentScoringGrade = _scoringGrade;
 
         return _scoringGrade;
     }
@@ -297,6 +358,16 @@ public class GameManager : MonoBehaviour
     public void ShowScore()
     {
         uiManager.UpdateScore();
+    }
+
+    public void CoinCollected()
+    {
+        _coinCollected = true;
+    }
+
+    public bool IsConsecutiveScore()
+    {
+        return _isConsecutiveScore;
     }
 
 }
