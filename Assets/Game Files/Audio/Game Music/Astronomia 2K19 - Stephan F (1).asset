@@ -1,0 +1,681 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3897cfcf026eb848b3be5b9a80f84af, type: 3}
+  m_Name: Astronomia 2K19 - Stephan F (1)
+  m_EditorClassIdentifier: 
+  _name: Astronomia 2K19 - Stephan F
+  _tracks:
+  - {fileID: 7390990159037532063}
+--- !u!114 &7390990159037532063
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 205664eb0975819479c74d7135dea8de, type: 3}
+  m_Name: Beats
+  m_EditorClassIdentifier: 
+  _name: Beats
+  _features:
+  - timestamp: 0.32531
+    bpm: 100.93688
+  - timestamp: 0.80131
+    bpm: 100.93688
+  - timestamp: 1.27731
+    bpm: 100.93688
+  - timestamp: 1.75331
+    bpm: 100.93688
+  - timestamp: 2.22931
+    bpm: 100.93688
+  - timestamp: 2.70531
+    bpm: 100.93688
+  - timestamp: 3.18131
+    bpm: 100.93688
+  - timestamp: 3.65731
+    bpm: 100.93688
+  - timestamp: 4.13331
+    bpm: 100.93688
+  - timestamp: 4.60931
+    bpm: 81.00265
+  - timestamp: 5.08531
+    bpm: 81.00265
+  - timestamp: 5.56131
+    bpm: 81.00265
+  - timestamp: 6.03731
+    bpm: 81.00265
+  - timestamp: 6.51331
+    bpm: 81.00265
+  - timestamp: 6.98931
+    bpm: 81.00265
+  - timestamp: 7.46531
+    bpm: 157.56003
+  - timestamp: 7.94131
+    bpm: 158.52666
+  - timestamp: 8.41731
+    bpm: 158.52666
+  - timestamp: 8.89331
+    bpm: 158.52666
+  - timestamp: 9.36931
+    bpm: 158.52666
+  - timestamp: 9.84531
+    bpm: 158.52666
+  - timestamp: 10.32131
+    bpm: 94.99942
+  - timestamp: 10.79731
+    bpm: 94.65144
+  - timestamp: 11.27331
+    bpm: 94.65144
+  - timestamp: 11.74931
+    bpm: 94.65144
+  - timestamp: 12.22531
+    bpm: 94.65144
+  - timestamp: 12.701315
+    bpm: 94.65144
+  - timestamp: 13.188934
+    bpm: 126.04802
+  - timestamp: 13.653334
+    bpm: 126.04802
+  - timestamp: 14.117732
+    bpm: 126.04802
+  - timestamp: 14.605351
+    bpm: 126.04802
+  - timestamp: 15.092971
+    bpm: 126.04802
+  - timestamp: 15.557369
+    bpm: 126.04802
+  - timestamp: 16.021769
+    bpm: 126.04802
+  - timestamp: 16.509388
+    bpm: 126.04802
+  - timestamp: 16.973787
+    bpm: 126.04802
+  - timestamp: 17.461407
+    bpm: 126.04802
+  - timestamp: 17.949024
+    bpm: 126.04802
+  - timestamp: 18.413424
+    bpm: 126.04802
+  - timestamp: 18.877823
+    bpm: 126.04802
+  - timestamp: 19.342222
+    bpm: 126.04802
+  - timestamp: 19.829842
+    bpm: 126.04802
+  - timestamp: 20.317461
+    bpm: 126.04802
+  - timestamp: 20.805079
+    bpm: 126.04802
+  - timestamp: 21.269478
+    bpm: 126.04802
+  - timestamp: 21.733877
+    bpm: 126.04802
+  - timestamp: 22.198277
+    bpm: 126.04802
+  - timestamp: 22.685896
+    bpm: 126.04802
+  - timestamp: 23.173515
+    bpm: 126.04802
+  - timestamp: 23.661135
+    bpm: 126.04802
+  - timestamp: 24.125532
+    bpm: 126.04802
+  - timestamp: 24.589931
+    bpm: 126.04802
+  - timestamp: 25.05433
+    bpm: 126.04802
+  - timestamp: 25.54195
+    bpm: 126.04802
+  - timestamp: 26.02957
+    bpm: 126.04802
+  - timestamp: 26.517189
+    bpm: 126.04802
+  - timestamp: 26.981586
+    bpm: 126.04802
+  - timestamp: 27.445986
+    bpm: 126.04802
+  - timestamp: 27.933605
+    bpm: 126.04802
+  - timestamp: 28.398005
+    bpm: 126.04802
+  - timestamp: 28.885624
+    bpm: 126.04802
+  - timestamp: 29.373243
+    bpm: 126.04802
+  - timestamp: 29.837643
+    bpm: 126.04802
+  - timestamp: 30.30204
+    bpm: 126.04802
+  - timestamp: 30.78966
+    bpm: 126.04802
+  - timestamp: 31.254059
+    bpm: 126.04802
+  - timestamp: 31.741678
+    bpm: 126.04802
+  - timestamp: 32.229298
+    bpm: 126.04802
+  - timestamp: 32.693695
+    bpm: 126.04802
+  - timestamp: 33.158096
+    bpm: 126.04802
+  - timestamp: 33.645714
+    bpm: 126.04802
+  - timestamp: 34.133335
+    bpm: 126.04802
+  - timestamp: 34.597733
+    bpm: 126.04802
+  - timestamp: 35.06213
+    bpm: 126.04802
+  - timestamp: 35.54975
+    bpm: 126.04802
+  - timestamp: 36.03737
+    bpm: 126.04802
+  - timestamp: 36.52499
+    bpm: 126.04802
+  - timestamp: 36.989388
+    bpm: 126.04802
+  - timestamp: 37.453785
+    bpm: 126.04802
+  - timestamp: 37.918186
+    bpm: 126.04802
+  - timestamp: 38.405804
+    bpm: 126.04802
+  - timestamp: 38.893425
+    bpm: 126.04802
+  - timestamp: 39.381042
+    bpm: 126.04802
+  - timestamp: 39.845444
+    bpm: 126.04802
+  - timestamp: 40.33306
+    bpm: 126.04802
+  - timestamp: 40.79746
+    bpm: 126.04802
+  - timestamp: 41.26186
+    bpm: 126.04802
+  - timestamp: 41.749477
+    bpm: 126.04802
+  - timestamp: 42.2371
+    bpm: 126.04802
+  - timestamp: 42.701496
+    bpm: 126.04802
+  - timestamp: 43.165897
+    bpm: 126.04802
+  - timestamp: 43.653515
+    bpm: 126.04802
+  - timestamp: 44.141132
+    bpm: 126.04802
+  - timestamp: 44.628754
+    bpm: 126.04802
+  - timestamp: 45.09315
+    bpm: 126.04802
+  - timestamp: 45.557552
+    bpm: 126.04802
+  - timestamp: 46.02195
+    bpm: 126.04802
+  - timestamp: 46.48635
+    bpm: 126.04802
+  - timestamp: 46.97397
+    bpm: 126.04802
+  - timestamp: 47.461586
+    bpm: 126.04802
+  - timestamp: 47.949207
+    bpm: 126.04802
+  - timestamp: 48.436825
+    bpm: 126.04802
+  - timestamp: 48.901226
+    bpm: 126.04802
+  - timestamp: 49.365623
+    bpm: 126.04802
+  - timestamp: 49.83002
+    bpm: 126.04802
+  - timestamp: 50.294422
+    bpm: 126.04802
+  - timestamp: 50.78204
+    bpm: 126.04802
+  - timestamp: 51.26966
+    bpm: 126.04802
+  - timestamp: 51.75728
+    bpm: 126.04802
+  - timestamp: 52.2449
+    bpm: 126.04802
+  - timestamp: 52.709297
+    bpm: 126.04802
+  - timestamp: 53.173695
+    bpm: 126.04802
+  - timestamp: 53.638096
+    bpm: 126.04802
+  - timestamp: 54.125713
+    bpm: 126.04802
+  - timestamp: 54.613335
+    bpm: 126.04802
+  - timestamp: 55.100952
+    bpm: 126.04802
+  - timestamp: 55.56535
+    bpm: 126.04802
+  - timestamp: 56.02975
+    bpm: 126.04802
+  - timestamp: 56.49415
+    bpm: 126.04802
+  - timestamp: 56.95855
+    bpm: 126.04802
+  - timestamp: 57.446167
+    bpm: 126.04802
+  - timestamp: 57.93379
+    bpm: 126.04802
+  - timestamp: 58.421406
+    bpm: 126.04802
+  - timestamp: 58.909023
+    bpm: 126.04802
+  - timestamp: 59.396645
+    bpm: 126.04802
+  - timestamp: 59.861042
+    bpm: 126.04802
+  - timestamp: 60.325443
+    bpm: 126.04802
+  - timestamp: 60.78984
+    bpm: 126.04802
+  - timestamp: 61.254242
+    bpm: 126.04802
+  - timestamp: 61.71864
+    bpm: 126.04802
+  - timestamp: 62.206257
+    bpm: 126.04802
+  - timestamp: 62.69388
+    bpm: 126.04802
+  - timestamp: 63.181496
+    bpm: 126.04802
+  - timestamp: 63.669117
+    bpm: 126.04802
+  - timestamp: 64.15674
+    bpm: 126.04802
+  - timestamp: 64.62113
+    bpm: 126.04802
+  - timestamp: 65.08553
+    bpm: 126.04802
+  - timestamp: 65.549934
+    bpm: 126.04802
+  - timestamp: 66.01433
+    bpm: 126.04802
+  - timestamp: 66.50195
+    bpm: 126.04802
+  - timestamp: 66.98957
+    bpm: 126.04802
+  - timestamp: 67.47719
+    bpm: 126.04802
+  - timestamp: 67.964806
+    bpm: 126.04802
+  - timestamp: 68.42921
+    bpm: 126.04802
+  - timestamp: 68.89361
+    bpm: 126.04802
+  - timestamp: 69.358
+    bpm: 126.04802
+  - timestamp: 69.8224
+    bpm: 126.04802
+  - timestamp: 70.31002
+    bpm: 126.04802
+  - timestamp: 70.79764
+    bpm: 126.04802
+  - timestamp: 71.28526
+    bpm: 126.04802
+  - timestamp: 71.77288
+    bpm: 126.04802
+  - timestamp: 72.23728
+    bpm: 126.04802
+  - timestamp: 72.701675
+    bpm: 126.04802
+  - timestamp: 73.16608
+    bpm: 126.04802
+  - timestamp: 73.63048
+    bpm: 126.04802
+  - timestamp: 74.118095
+    bpm: 126.04802
+  - timestamp: 74.60571
+    bpm: 126.04802
+  - timestamp: 75.09333
+    bpm: 126.04802
+  - timestamp: 75.580956
+    bpm: 126.04802
+  - timestamp: 76.04535
+    bpm: 126.04802
+  - timestamp: 76.50975
+    bpm: 126.04802
+  - timestamp: 76.97415
+    bpm: 126.04802
+  - timestamp: 77.46177
+    bpm: 126.04802
+  - timestamp: 77.94939
+    bpm: 126.04802
+  - timestamp: 78.41379
+    bpm: 126.04802
+  - timestamp: 78.87819
+    bpm: 126.04802
+  - timestamp: 79.36581
+    bpm: 126.04802
+  - timestamp: 79.853424
+    bpm: 126.04802
+  - timestamp: 80.34104
+    bpm: 126.04802
+  - timestamp: 80.80544
+    bpm: 126.04802
+  - timestamp: 81.269844
+    bpm: 126.04802
+  - timestamp: 81.73424
+    bpm: 126.04802
+  - timestamp: 82.22186
+    bpm: 126.04802
+  - timestamp: 82.70948
+    bpm: 126.04802
+  - timestamp: 83.1971
+    bpm: 126.04802
+  - timestamp: 83.6615
+    bpm: 126.04802
+  - timestamp: 84.12589
+    bpm: 126.04802
+  - timestamp: 84.590294
+    bpm: 126.04802
+  - timestamp: 85.07791
+    bpm: 126.04802
+  - timestamp: 85.56554
+    bpm: 126.04802
+  - timestamp: 86.053154
+    bpm: 126.04802
+  - timestamp: 86.51755
+    bpm: 126.04802
+  - timestamp: 86.98195
+    bpm: 126.04802
+  - timestamp: 87.44635
+    bpm: 126.04802
+  - timestamp: 87.93397
+    bpm: 126.04802
+  - timestamp: 88.421585
+    bpm: 126.04802
+  - timestamp: 88.88599
+    bpm: 126.04802
+  - timestamp: 89.35039
+    bpm: 126.04802
+  - timestamp: 89.838005
+    bpm: 126.04802
+  - timestamp: 90.32562
+    bpm: 126.04802
+  - timestamp: 90.79002
+    bpm: 126.04802
+  - timestamp: 91.254425
+    bpm: 126.04802
+  - timestamp: 91.74204
+    bpm: 126.04802
+  - timestamp: 92.206436
+    bpm: 126.04802
+  - timestamp: 92.69406
+    bpm: 126.04802
+  - timestamp: 93.158455
+    bpm: 126.04802
+  - timestamp: 93.64608
+    bpm: 126.04802
+  - timestamp: 94.11047
+    bpm: 126.04802
+  - timestamp: 94.5981
+    bpm: 126.04802
+  - timestamp: 95.06249
+    bpm: 126.04802
+  - timestamp: 95.55011
+    bpm: 126.04802
+  - timestamp: 96.01451
+    bpm: 126.04802
+  - timestamp: 96.47891
+    bpm: 126.04802
+  - timestamp: 96.96653
+    bpm: 126.04802
+  - timestamp: 97.45415
+    bpm: 126.04802
+  - timestamp: 97.94177
+    bpm: 126.04802
+  - timestamp: 98.406166
+    bpm: 126.04802
+  - timestamp: 98.87057
+    bpm: 126.04802
+  - timestamp: 99.33497
+    bpm: 126.04802
+  - timestamp: 99.822586
+    bpm: 126.04802
+  - timestamp: 100.3102
+    bpm: 126.04802
+  - timestamp: 100.79782
+    bpm: 126.04802
+  - timestamp: 101.28544
+    bpm: 126.04802
+  - timestamp: 101.74984
+    bpm: 126.04802
+  - timestamp: 102.21424
+    bpm: 126.04802
+  - timestamp: 102.67864
+    bpm: 126.04802
+  - timestamp: 103.16626
+    bpm: 126.04802
+  - timestamp: 103.65388
+    bpm: 126.04802
+  - timestamp: 104.11828
+    bpm: 126.04802
+  - timestamp: 104.605896
+    bpm: 126.04802
+  - timestamp: 105.0703
+    bpm: 126.04802
+  - timestamp: 105.557915
+    bpm: 126.04802
+  - timestamp: 106.022316
+    bpm: 126.04802
+  - timestamp: 106.50993
+    bpm: 126.04802
+  - timestamp: 106.974335
+    bpm: 126.04802
+  - timestamp: 107.46195
+    bpm: 126.04802
+  - timestamp: 107.926346
+    bpm: 126.04802
+  - timestamp: 108.41397
+    bpm: 126.04802
+  - timestamp: 108.878365
+    bpm: 126.04802
+  - timestamp: 109.342766
+    bpm: 126.04802
+  - timestamp: 109.83038
+    bpm: 126.04802
+  - timestamp: 110.318
+    bpm: 126.04802
+  - timestamp: 110.805626
+    bpm: 126.04802
+  - timestamp: 111.27002
+    bpm: 126.04802
+  - timestamp: 111.73442
+    bpm: 126.04802
+  - timestamp: 112.19882
+    bpm: 126.04802
+  - timestamp: 112.68644
+    bpm: 126.04802
+  - timestamp: 113.17406
+    bpm: 126.04802
+  - timestamp: 113.661674
+    bpm: 126.04802
+  - timestamp: 114.126076
+    bpm: 126.04802
+  - timestamp: 114.59048
+    bpm: 126.04802
+  - timestamp: 115.05488
+    bpm: 126.04802
+  - timestamp: 115.542496
+    bpm: 126.04802
+  - timestamp: 116.03011
+    bpm: 126.04802
+  - timestamp: 116.51773
+    bpm: 126.04802
+  - timestamp: 116.98213
+    bpm: 126.04802
+  - timestamp: 117.44653
+    bpm: 126.04802
+  - timestamp: 117.91093
+    bpm: 126.04802
+  - timestamp: 118.39855
+    bpm: 126.04802
+  - timestamp: 118.88617
+    bpm: 126.04802
+  - timestamp: 119.37379
+    bpm: 126.04802
+  - timestamp: 119.83819
+    bpm: 126.04802
+  - timestamp: 120.30258
+    bpm: 126.04802
+  - timestamp: 120.79021
+    bpm: 126.04802
+  - timestamp: 121.277824
+    bpm: 126.04802
+  - timestamp: 121.742226
+    bpm: 126.04802
+  - timestamp: 122.20662
+    bpm: 126.04802
+  - timestamp: 122.67102
+    bpm: 126.04802
+  - timestamp: 123.15864
+    bpm: 126.04802
+  - timestamp: 123.646255
+    bpm: 126.04802
+  - timestamp: 124.13388
+    bpm: 126.04802
+  - timestamp: 124.6215
+    bpm: 126.04802
+  - timestamp: 125.0859
+    bpm: 126.04802
+  - timestamp: 125.55029
+    bpm: 126.04802
+  - timestamp: 126.014694
+    bpm: 126.04802
+  - timestamp: 126.479095
+    bpm: 126.04802
+  - timestamp: 126.96671
+    bpm: 126.04802
+  - timestamp: 127.45433
+    bpm: 126.04802
+  - timestamp: 127.94195
+    bpm: 126.04802
+  - timestamp: 128.42957
+    bpm: 126.04802
+  - timestamp: 128.89397
+    bpm: 126.04802
+  - timestamp: 129.35837
+    bpm: 126.04802
+  - timestamp: 129.846
+    bpm: 126.04802
+  - timestamp: 130.31038
+    bpm: 126.04802
+  - timestamp: 130.798
+    bpm: 126.04802
+  - timestamp: 131.28563
+    bpm: 126.04802
+  - timestamp: 131.75002
+    bpm: 126.04802
+  - timestamp: 132.21442
+    bpm: 126.04802
+  - timestamp: 132.70204
+    bpm: 126.04802
+  - timestamp: 133.18967
+    bpm: 126.04802
+  - timestamp: 133.65405
+    bpm: 126.04802
+  - timestamp: 134.11845
+    bpm: 126.04802
+  - timestamp: 134.60608
+    bpm: 126.04802
+  - timestamp: 135.09369
+    bpm: 126.04802
+  - timestamp: 135.55809
+    bpm: 126.04802
+  - timestamp: 136.02249
+    bpm: 126.04802
+  - timestamp: 136.51012
+    bpm: 126.04802
+  - timestamp: 136.99773
+    bpm: 126.04802
+  - timestamp: 137.48535
+    bpm: 126.04802
+  - timestamp: 137.94975
+    bpm: 126.04802
+  - timestamp: 138.41415
+    bpm: 126.04802
+  - timestamp: 138.87856
+    bpm: 126.04802
+  - timestamp: 139.36617
+    bpm: 126.04802
+  - timestamp: 139.85379
+    bpm: 126.04802
+  - timestamp: 140.31819
+    bpm: 126.04802
+  - timestamp: 140.78258
+    bpm: 126.04802
+  - timestamp: 141.2702
+    bpm: 126.04802
+  - timestamp: 141.75783
+    bpm: 126.04802
+  - timestamp: 142.24544
+    bpm: 126.04802
+  - timestamp: 142.70984
+    bpm: 126.04802
+  - timestamp: 143.17424
+    bpm: 126.04802
+  - timestamp: 143.63864
+    bpm: 126.04802
+  - timestamp: 144.10304
+    bpm: 126.04802
+  - timestamp: 144.59065
+    bpm: 126.04802
+  - timestamp: 145.07828
+    bpm: 126.04802
+  - timestamp: 145.5659
+    bpm: 126.04802
+  - timestamp: 146.05351
+    bpm: 126.04802
+  - timestamp: 146.51791
+    bpm: 126.04802
+  - timestamp: 146.98232
+    bpm: 126.04802
+  - timestamp: 147.44672
+    bpm: 126.04802
+  - timestamp: 147.93433
+    bpm: 126.04802
+  - timestamp: 148.42195
+    bpm: 126.04802
+  - timestamp: 148.88635
+    bpm: 126.04802
+  - timestamp: 149.35075
+    bpm: 126.04802
+  - timestamp: 149.83836
+    bpm: 126.04802
+  - timestamp: 150.32599
+    bpm: 126.04802
+  - timestamp: 150.79039
+    bpm: 126.04802
+  - timestamp: 151.25479
+    bpm: 126.04802
+  - timestamp: 151.7424
+    bpm: 126.04802
+  - timestamp: 152.23003
+    bpm: 126.04802
+  - timestamp: 152.69443
+    bpm: 126.04802
+  - timestamp: 153.15881
+    bpm: 126.04802
+  - timestamp: 153.62321
+    bpm: 126.04802
+  - timestamp: 154.11084
+    bpm: 126.04802
+  - timestamp: 154.59846
+    bpm: 126.04802

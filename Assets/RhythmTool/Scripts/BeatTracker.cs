@@ -18,6 +18,9 @@ namespace RhythmTool
             }
         }
 
+        public bool usingDefaultMagnitude;
+        public int customMagnitude;
+
         private float[] signalBuffer;
 
         private float[] signal;
@@ -123,7 +126,10 @@ namespace RhythmTool
         {
             float spectralFlux = 0;
 
-            for (int i = 0; i < magnitude.Length; i++)
+            // Added this line to tweak with songs getting offbeat
+            int magnitudeLength = usingDefaultMagnitude ? magnitude.Length : customMagnitude;
+
+            for (int i = 0; i < magnitudeLength; i++)
                 spectralFlux += Mathf.Max(magnitude[i] - prevMagnitude[i], 0);
 
             Array.Copy(magnitude, prevMagnitude, magnitude.Length);
